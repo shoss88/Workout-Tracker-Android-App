@@ -5,6 +5,7 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
 
     <Button
@@ -15,7 +16,7 @@
         android:layout_marginEnd="10dp"
         android:backgroundTint="#6492ED"
         android:gravity="center|end"
-        android:onClick="createRoutine"
+        android:onClick="addRoutine"
         android:paddingStart="10dp"
         android:paddingRight="20dp"
         android:text="Add Routine"
@@ -31,14 +32,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="159dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#E36464"
+        android:gravity="center|end"
+        android:onClick="clearRoutines"
+        android:paddingStart="0dp"
+        android:paddingRight="15dp"
+        android:text="Clear Routines"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:cornerRadius="14dp"
+        app:icon="@android:drawable/ic_delete"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconSize="26dp"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#B8B5B5"
+        android:layout_marginTop="70dp"
+        android:background="#C4E1C5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addRoutineButton">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/routineList"
@@ -46,7 +72,7 @@
             android:layout_height="wrap_content"
             android:background="#B8B5B5"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/addRoutineButton" />
+            app:layout_constraintTop_toBottomOf="@+id/addRoutineButton"></LinearLayout>
     </ScrollView>
 
 
