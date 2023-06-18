@@ -30,7 +30,8 @@
         app:iconSize="30dp"
         app:iconTint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+    />
 
     <Button
         android:id="@+id/button"
@@ -54,7 +55,8 @@
         app:iconSize="26dp"
         app:iconTint="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+    />
 
     <ScrollView
         android:layout_width="0dp"
@@ -72,7 +74,8 @@
             android:layout_height="wrap_content"
             android:background="#B8B5B5"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/addRoutineButton"></LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/addRoutineButton">
+        </LinearLayout>
     </ScrollView>
 
 
