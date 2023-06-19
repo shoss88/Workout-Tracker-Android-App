@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Workout Tracker</string>
+    <string name="clear_routines">Clear Routines</string>
+    <string name="add_routine">Add Routine</string>
 </resources>

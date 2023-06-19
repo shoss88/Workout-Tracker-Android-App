@@ -5,13 +5,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
-    private int routineCount = 1;
+    int routineCount = 1;
     LinearLayout routineList;
 
     @Override
@@ -22,10 +23,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addRoutine(View v){
-        Button newRoutine = new Button(MainActivity.this);
-        newRoutine.setText((CharSequence)("Routine " + routineCount));
-        routineCount++;
-        routineList.addView(newRoutine);
+        LayoutInflater li = getLayoutInflater();
+        View routineBox = li.inflate(R.layout.routine_box, null);
+        routineList.addView(routineBox);
     }
     public void clearRoutines(View v){
         routineList.removeAllViews();

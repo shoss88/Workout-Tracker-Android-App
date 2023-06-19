@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainLayout"
@@ -18,8 +19,8 @@
         android:gravity="center|end"
         android:onClick="addRoutine"
         android:paddingStart="10dp"
-        android:paddingRight="20dp"
-        android:text="Add Routine"
+        android:paddingEnd="20dp"
+        android:text="@string/add_routine"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
@@ -30,8 +31,7 @@
         app:iconSize="30dp"
         app:iconTint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-    />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"
@@ -43,8 +43,8 @@
         android:gravity="center|end"
         android:onClick="clearRoutines"
         android:paddingStart="0dp"
-        android:paddingRight="15dp"
-        android:text="Clear Routines"
+        android:paddingEnd="15dp"
+        android:text="@string/clear_routines"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
@@ -55,14 +55,13 @@
         app:iconSize="26dp"
         app:iconTint="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-    />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="70dp"
-        android:background="#C4E1C5"
+        android:background="#444544"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,10 +71,8 @@
             android:id="@+id/routineList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#B8B5B5"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/addRoutineButton">
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/addRoutineButton" />
     </ScrollView>
 
 

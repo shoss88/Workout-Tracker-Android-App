@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +13,6 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:background="#D8D8D8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,11 +30,14 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="116dp"
             android:layout_marginBottom="0dp"
+            android:background="@drawable/ripple_text"
             android:clickable="true"
+            android:focusable="true"
             android:gravity="center|start"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:text="Routine"
+            android:textColor="#000000"
             android:textSize="25sp" />
 
         <ImageButton
@@ -44,7 +47,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:background="#FFADAD"
+            android:background="@drawable/ripple_delete"
             app:srcCompat="@android:drawable/ic_menu_delete" />
 
         <ImageButton
@@ -57,7 +60,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="58dp"
             android:layout_marginBottom="0dp"
-            android:background="#ECE293"
+            android:background="@drawable/ripple_edit"
             app:srcCompat="@android:drawable/ic_menu_edit" />
 
     </RelativeLayout>
