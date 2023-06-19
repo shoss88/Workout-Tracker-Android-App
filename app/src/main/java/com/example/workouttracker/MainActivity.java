@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     int routineCount = 1;
@@ -24,7 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void addRoutine(View v){
         LayoutInflater li = getLayoutInflater();
-        View routineBox = li.inflate(R.layout.routine_box, null);
+        View routineBox = li.inflate(R.layout.routine_box, routineList, false);
+        TextView routineName = (TextView) routineBox.findViewById(R.id.routineName);
+        routineName.setText((CharSequence) ("Routine " + routineCount));
+        routineCount++;
         routineList.addView(routineBox);
     }
     public void clearRoutines(View v){
