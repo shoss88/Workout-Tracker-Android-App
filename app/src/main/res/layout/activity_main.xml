@@ -9,12 +9,27 @@
     android:background="#FFFFFF"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/mainHeader"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="#6750A3"
+        android:gravity="center|start"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/routine_header"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <Button
         android:id="@+id/addRoutineButton"
         android:layout_width="159dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="74dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="#6492ED"
         android:gravity="center|end"
         android:onClick="addRoutine"
@@ -37,8 +52,8 @@
         android:id="@+id/button"
         android:layout_width="159dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="74dp"
         android:backgroundTint="#E36464"
         android:gravity="center|end"
         android:onClick="clearRoutines"
@@ -60,7 +75,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="135dp"
         android:background="#444544"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,6 +89,7 @@
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/addRoutineButton" />
     </ScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
