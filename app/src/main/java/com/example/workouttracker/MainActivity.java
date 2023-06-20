@@ -1,10 +1,12 @@
 package com.example.workouttracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +18,6 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
-    int routineCount = 1;
     LinearLayout routineList;
 
     @Override
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton routineEdit = (ImageButton) routineBox.findViewById(R.id.boxEdit);
         ImageButton routineDelete = (ImageButton) routineBox.findViewById(R.id.boxDelete);
 
-        routineName.setText((CharSequence) ("Routine " + routineCount));
+        routineName.setText((CharSequence) ("Routine"));
         routineName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,15 +50,10 @@ public class MainActivity extends AppCompatActivity {
         routineDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                areYouSureDialog(v);
             }
         });
         routineList.addView(routineBox);
-        routineCount++;
-    }
-    public void clearRoutines(View v){
-        routineList.removeAllViews();
-        routineCount = 1;
     }
     public void editRoutineNameDialog(View v){
         TextView routineName = ((RelativeLayout)v.getParent()).findViewById(R.id.boxName);
@@ -83,6 +79,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+    public void areYouSureDialog(View v){
+
+        Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.sure_dialog);
+        Button yes = dialog.findViewById(R.id.yesButton);
+        Button no = dialog.findViewById(R.id.noButton);
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RelativeLayout parent = (RelativeLayout)v.getParent();
+                View clickedButton = parent.findViewById(v.getId());
+                if (clickedButton.getId() == R.id.clearRoutinesButton){
+                    routineList.removeAllViews();
+                }
+                else if (clickedButton.getId() == R.id.boxDelete){
+                    ((ConstraintLayout)parent.getParent()).removeView(parent);
+                }
+                dialog.dismiss();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();

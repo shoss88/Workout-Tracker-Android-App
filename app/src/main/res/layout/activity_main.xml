@@ -24,55 +24,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <Button
-        android:id="@+id/addRoutineButton"
-        android:layout_width="159dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="74dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="#6492ED"
-        android:gravity="center|end"
-        android:onClick="addRoutine"
-        android:paddingStart="10dp"
-        android:paddingEnd="20dp"
-        android:text="@string/add_routine"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        app:cornerRadius="14dp"
-        app:icon="@android:drawable/ic_input_add"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconSize="30dp"
-        app:iconTint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="159dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="74dp"
-        android:backgroundTint="#E36464"
-        android:gravity="center|end"
-        android:onClick="clearRoutines"
-        android:paddingStart="0dp"
-        android:paddingEnd="15dp"
-        android:text="@string/clear_routines"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        app:cornerRadius="14dp"
-        app:icon="@android:drawable/ic_delete"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
-        app:iconSize="26dp"
-        app:iconTint="#FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/routineListScrollCont"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="135dp"
@@ -90,6 +44,67 @@
             app:layout_constraintTop_toBottomOf="@+id/addRoutineButton" />
     </ScrollView>
 
+
+    <RelativeLayout
+        android:id="@+id/buttonArea"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/routineListScrollCont"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainHeader">
+
+        <Button
+            android:id="@+id/clearRoutinesButton"
+            android:layout_width="159dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="13dp"
+            android:backgroundTint="#E36464"
+            android:gravity="center|end"
+            android:onClick="areYouSureDialog"
+            android:paddingStart="0dp"
+            android:paddingEnd="15dp"
+            android:text="@string/clear_routines"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            app:cornerRadius="14dp"
+            app:icon="@android:drawable/ic_delete"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="26dp"
+            app:iconTint="#FFFFFF" />
+
+        <Button
+            android:id="@+id/addRoutineButton"
+            android:layout_width="159dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="15dp"
+            android:backgroundTint="#6492ED"
+            android:gravity="center|end"
+            android:onClick="addRoutine"
+            android:paddingStart="10dp"
+            android:paddingEnd="20dp"
+            android:text="@string/add_routine"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            app:cornerRadius="14dp"
+            app:icon="@android:drawable/ic_input_add"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconSize="30dp"
+            app:iconTint="#FFFFFF" />
+
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
