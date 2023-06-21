@@ -3,4 +3,13 @@
     <string name="clear_routines">Clear Routines</string>
     <string name="add_routine">Add Routine</string>
     <string name="routine_header">Routines</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="max_char">19 characters max</string>
+    <string name="clear_workouts">Clear Workouts</string>
+    <string name="add_workout">Add Workout</string>
+    <string name="sure_question">Are you sure?</string>
+    <string name="default_workouts_header">Routine: All Workouts</string>
 </resources>
