@@ -6,7 +6,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +13,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     LinearLayout routineList;
@@ -58,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
     public void editRoutineNameDialog(View v){
         TextView routineName = ((RelativeLayout)v.getParent()).findViewById(R.id.boxName);
         Dialog dialog = new Dialog(MainActivity.this);
-        dialog.setContentView(R.layout.edit_routine_name_dialog);
-        Button submit = dialog.findViewById(R.id.ERSubmitButton);
-        Button cancel = dialog.findViewById(R.id.ERCancelButton);
+        dialog.setContentView(R.layout.edit_name_dialog);
+        Button submit = dialog.findViewById(R.id.ESubmitButton);
+        Button cancel = dialog.findViewById(R.id.ECancelButton);
         TextView textBox = ((TextView)dialog.findViewById(R.id.editTextBox));
         textBox.setText(routineName.getText());
         submit.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
     public void areYouSureDialog(View v){
-
         Dialog dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.sure_dialog);
         Button yes = dialog.findViewById(R.id.yesButton);
@@ -97,11 +93,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 RelativeLayout parent = (RelativeLayout)v.getParent();
                 View clickedButton = parent.findViewById(v.getId());
-                if (clickedButton.getId() == R.id.clearRoutinesButton){
+                if (parent.getId() == R.id.buttonArea){
                     routineList.removeAllViews();
                 }
-                else if (clickedButton.getId() == R.id.boxDelete){
-                    ((ConstraintLayout)parent.getParent()).removeView(parent);
+                else {
+                    ((LinearLayout)parent.getParent()).removeView(parent);
                 }
                 dialog.dismiss();
             }
