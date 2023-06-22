@@ -98,7 +98,7 @@ public class Workout extends AppCompatActivity {
                     workoutList.removeAllViews();
                 }
                 else {
-                    ((LinearLayout)parent.getParent()).removeView(parent);
+                    ((ConstraintLayout)parent.getParent()).removeView(parent);
                 }
                 dialog.dismiss();
             }

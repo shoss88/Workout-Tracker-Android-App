@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     routineList.removeAllViews();
                 }
                 else {
-                    ((LinearLayout)parent.getParent()).removeView(parent);
+                    ((ConstraintLayout)parent.getParent()).removeView(parent);
                 }
                 dialog.dismiss();
             }

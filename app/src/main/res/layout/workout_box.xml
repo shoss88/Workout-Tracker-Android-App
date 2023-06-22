@@ -9,18 +9,20 @@
     <RelativeLayout
         android:id="@+id/workoutBox"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:id="@+id/workoutBoxMain"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -82,28 +84,40 @@
                 android:background="@drawable/ripple"
                 android:backgroundTint="#77A8F3"
                 app:srcCompat="@android:drawable/ic_menu_add" />
-
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/exerciseList"
+        <ScrollView
+            android:id="@+id/exerciseListScrollCont"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="270dp"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
+            android:layout_marginTop="60dp"
             android:background="@drawable/border"
-            android:backgroundTint="#FFFFFF"
-            android:backgroundTintMode="multiply"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/workoutBoxMain" />
+            android:backgroundTintMode="multiply">
 
+            <LinearLayout
+                android:id="@+id/exerciseList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
     </RelativeLayout>
 
 
-
+<!--    <LinearLayout-->
+<!--        android:id="@+id/exerciseList"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginEnd="-16dp"-->
+<!--        android:layout_marginBottom="281dp"-->
+<!--        android:background="@drawable/border"-->
+<!--        android:backgroundTint="#FFFFFF"-->
+<!--        android:backgroundTintMode="multiply"-->
+<!--        android:orientation="horizontal" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
