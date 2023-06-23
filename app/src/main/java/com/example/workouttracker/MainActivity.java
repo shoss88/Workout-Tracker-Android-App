@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity {
     LinearLayout routineList;
 
@@ -113,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void launchWorkoutActivity(View v){
         Intent workoutIntent = new Intent(MainActivity.this, WorkoutActivity.class);
+        TextView routineName = (TextView)v;
+        workoutIntent.putExtra("RoutineName", routineName.getText());
         startActivity(workoutIntent);
     }
 }

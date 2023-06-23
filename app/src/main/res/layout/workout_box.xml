@@ -95,30 +95,15 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="60dp"
             android:background="@drawable/border"
+            android:backgroundTint="#CCF4C5"
             android:backgroundTintMode="multiply">
 
             <LinearLayout
                 android:id="@+id/exerciseList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                android:paddingBottom="10dp" />
         </ScrollView>
     </RelativeLayout>
-
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/exerciseList"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginEnd="-16dp"-->
-<!--        android:layout_marginBottom="281dp"-->
-<!--        android:background="@drawable/border"-->
-<!--        android:backgroundTint="#FFFFFF"-->
-<!--        android:backgroundTintMode="multiply"-->
-<!--        android:orientation="horizontal" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

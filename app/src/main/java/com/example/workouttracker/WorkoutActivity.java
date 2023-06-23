@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -25,6 +26,9 @@ public class WorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
         workoutList = (LinearLayout) findViewById(R.id.workoutList);
+        Intent workoutIntent = getIntent();
+        String routineName = workoutIntent.getStringExtra("RoutineName") + ": Workouts";
+        ((TextView)findViewById(R.id.mainHeader)).setText(routineName);
     }
     public void addWorkout(View v){
         LayoutInflater li = getLayoutInflater();
@@ -147,11 +151,12 @@ public class WorkoutActivity extends AppCompatActivity {
     public boolean onKeyHelper(View view, int key, KeyEvent keyEvent, View exerciseElement){
         if (key == KeyEvent.KEYCODE_ENTER){
             InputMethodManager keyboard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            keyboard.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), 0);
+            keyboard.hideSoftInputFromWindow(WorkoutActivity.this.getCurrentFocus().getWindowToken(), 0);
             exerciseElement.setFocusable(false);
             exerciseElement.setFocusableInTouchMode(true);
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }
