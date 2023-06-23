@@ -4,17 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class Workout extends AppCompatActivity {
+public class WorkoutActivity extends AppCompatActivity {
     LinearLayout workoutList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +59,7 @@ public class Workout extends AppCompatActivity {
     }
     public void editWorkoutNameDialog(View v){
         TextView workoutName = ((RelativeLayout)v.getParent()).findViewById(R.id.workoutBoxName);
-        Dialog dialog = new Dialog(Workout.this);
+        Dialog dialog = new Dialog(WorkoutActivity.this);
         dialog.setContentView(R.layout.edit_name_dialog);
         Button submit = dialog.findViewById(R.id.ESubmitButton);
         Button cancel = dialog.findViewById(R.id.ECancelButton);
@@ -85,7 +89,7 @@ public class Workout extends AppCompatActivity {
         dialog.show();
     }
     public void areYouSureDialog(View v){
-        Dialog dialog = new Dialog(Workout.this);
+        Dialog dialog = new Dialog(WorkoutActivity.this);
         dialog.setContentView(R.layout.sure_dialog);
         Button yes = dialog.findViewById(R.id.yesButton);
         Button no = dialog.findViewById(R.id.noButton);
@@ -96,6 +100,9 @@ public class Workout extends AppCompatActivity {
                 View clickedButton = parent.findViewById(v.getId());
                 if (parent.getId() == R.id.buttonArea){
                     workoutList.removeAllViews();
+                }
+                else if (parent.getId() == R.id.workoutBoxMain){
+                    ((ConstraintLayout)parent.getParent().getParent()).removeView((RelativeLayout)parent.getParent());
                 }
                 else {
                     ((ConstraintLayout)parent.getParent()).removeView(parent);
@@ -115,7 +122,20 @@ public class Workout extends AppCompatActivity {
         LayoutInflater li = getLayoutInflater();
         View exerciseBox = li.inflate(R.layout.exercise_box, exerciseList, false);
         ImageButton exerciseDelete = (ImageButton) exerciseBox.findViewById(R.id.exerciseBoxDelete);
-
+        EditText exerciseName = (EditText) exerciseBox.findViewById(R.id.exerciseName);
+        EditText exerciseWeight = (EditText) exerciseBox.findViewById(R.id.exerciseWeight);
+        exerciseName.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int key, KeyEvent keyEvent) {
+                return onKeyHelper(view, key, keyEvent, exerciseName);
+            }
+        });
+        exerciseWeight.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int key, KeyEvent keyEvent) {
+                return onKeyHelper(view, key, keyEvent, exerciseWeight);
+            }
+        });
         exerciseDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,5 +143,16 @@ public class Workout extends AppCompatActivity {
             }
         });
         exerciseList.addView(exerciseBox);
+    }
+    public boolean onKeyHelper(View view, int key, KeyEvent keyEvent, View exerciseElement){
+        if (key == KeyEvent.KEYCODE_ENTER){
+            InputMethodManager keyboard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            keyboard.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), 0);
+            exerciseElement.setFocusable(false);
+            exerciseElement.setFocusableInTouchMode(true);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

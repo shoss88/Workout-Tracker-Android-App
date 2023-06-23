@@ -10,9 +10,9 @@
         android:id="@+id/workoutBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="3dp"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -89,7 +89,7 @@
         <ScrollView
             android:id="@+id/exerciseListScrollCont"
             android:layout_width="0dp"
-            android:layout_height="270dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -101,6 +101,7 @@
                 android:id="@+id/exerciseList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
                 android:orientation="vertical" />
         </ScrollView>
     </RelativeLayout>

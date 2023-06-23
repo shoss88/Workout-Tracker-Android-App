@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         routineName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                launchWorkoutActivity(v);
             }
         });
         routineEdit.setOnClickListener(new View.OnClickListener() {
@@ -109,5 +110,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+    public void launchWorkoutActivity(View v){
+        Intent workoutIntent = new Intent(MainActivity.this, WorkoutActivity.class);
+        startActivity(workoutIntent);
     }
 }
