@@ -1,5 +1,6 @@
 package com.example.workouttracker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -7,6 +8,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +20,12 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     LinearLayout routineList;
+    List<View> allRoutines = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 areYouSureDialog(v);
             }
         });
+        routineBox.setId(View.generateViewId());
+        Log.i("id", "" + routineBox.getId());
         routineList.addView(routineBox);
+        allRoutines.add(routineBox);
     }
     public void editRoutineNameDialog(View v){
         TextView routineName = ((RelativeLayout)v.getParent()).findViewById(R.id.boxName);
@@ -118,5 +128,22 @@ public class MainActivity extends AppCompatActivity {
         TextView routineName = (TextView)v;
         workoutIntent.putExtra("RoutineName", routineName.getText());
         startActivity(workoutIntent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        for (int i = 0; i < allRoutines.size(); i++){
+            outState.putInt("routine" + i, allRoutines.get(i).getId());
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        for (int i = 0; i < allRoutines.size(); i++){
+            View routine = allRoutines.get(i);
+            routine.setId(savedInstanceState.getInt("routine" + i));
+        }
     }
 }
