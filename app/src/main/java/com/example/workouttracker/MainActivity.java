@@ -25,8 +25,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     LinearLayout routineList;
-    List<View> allRoutines = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         routineBox.setId(View.generateViewId());
-        Log.i("id", "" + routineBox.getId());
         routineList.addView(routineBox);
-        allRoutines.add(routineBox);
     }
     public void editRoutineNameDialog(View v){
         TextView routineName = ((RelativeLayout)v.getParent()).findViewById(R.id.boxName);
@@ -128,22 +124,5 @@ public class MainActivity extends AppCompatActivity {
         TextView routineName = (TextView)v;
         workoutIntent.putExtra("RoutineName", routineName.getText());
         startActivity(workoutIntent);
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        for (int i = 0; i < allRoutines.size(); i++){
-            outState.putInt("routine" + i, allRoutines.get(i).getId());
-        }
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        for (int i = 0; i < allRoutines.size(); i++){
-            View routine = allRoutines.get(i);
-            routine.setId(savedInstanceState.getInt("routine" + i));
-        }
     }
 }

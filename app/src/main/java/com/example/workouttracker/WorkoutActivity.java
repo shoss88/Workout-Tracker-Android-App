@@ -1,5 +1,6 @@
 package com.example.workouttracker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WorkoutActivity extends AppCompatActivity {
     LinearLayout workoutList;
@@ -59,6 +64,7 @@ public class WorkoutActivity extends AppCompatActivity {
                 addExercise(v, exerciseList);
             }
         });
+        workoutBox.setId(View.generateViewId());
         workoutList.addView(workoutBox);
     }
     public void editWorkoutNameDialog(View v){
