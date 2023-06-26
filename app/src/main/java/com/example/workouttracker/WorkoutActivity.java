@@ -30,7 +30,7 @@ public class WorkoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
-        workoutList = (LinearLayout) findViewById(R.id.workoutList);
+        workoutList = findViewById(R.id.workoutList);
         Intent workoutIntent = getIntent();
         String routineName = workoutIntent.getStringExtra("RoutineName") + ": Workouts";
         ((TextView)findViewById(R.id.mainHeader)).setText(routineName);
@@ -38,11 +38,11 @@ public class WorkoutActivity extends AppCompatActivity {
     public void addWorkout(View v){
         LayoutInflater li = getLayoutInflater();
         View workoutBox = li.inflate(R.layout.workout_box, workoutList, false);
-        TextView workoutName = (TextView) workoutBox.findViewById(R.id.workoutBoxName);
-        ImageButton workoutEdit = (ImageButton) workoutBox.findViewById(R.id.workoutBoxEdit);
-        ImageButton workoutDelete = (ImageButton) workoutBox.findViewById(R.id.workoutBoxDelete);
-        ImageButton workoutAdd = (ImageButton) workoutBox.findViewById(R.id.workoutBoxAdd);
-        LinearLayout exerciseList = (LinearLayout) workoutBox.findViewById(R.id.exerciseList);
+        TextView workoutName = workoutBox.findViewById(R.id.workoutBoxName);
+        ImageButton workoutEdit = workoutBox.findViewById(R.id.workoutBoxEdit);
+        ImageButton workoutDelete = workoutBox.findViewById(R.id.workoutBoxDelete);
+        ImageButton workoutAdd = workoutBox.findViewById(R.id.workoutBoxAdd);
+        LinearLayout exerciseList = workoutBox.findViewById(R.id.exerciseList);
 
         workoutName.setText((CharSequence) "Workout");
 
@@ -73,7 +73,7 @@ public class WorkoutActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.edit_name_dialog);
         Button submit = dialog.findViewById(R.id.ESubmitButton);
         Button cancel = dialog.findViewById(R.id.ECancelButton);
-        TextView textBox = ((TextView)dialog.findViewById(R.id.editTextBox));
+        TextView textBox = dialog.findViewById(R.id.editTextBox);
         textBox.setText(workoutName.getText());
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +107,6 @@ public class WorkoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 RelativeLayout parent = (RelativeLayout)v.getParent();
-                View clickedButton = parent.findViewById(v.getId());
                 if (parent.getId() == R.id.buttonArea){
                     workoutList.removeAllViews();
                 }
@@ -131,19 +130,19 @@ public class WorkoutActivity extends AppCompatActivity {
     public void addExercise(View v, LinearLayout exerciseList){
         LayoutInflater li = getLayoutInflater();
         View exerciseBox = li.inflate(R.layout.exercise_box, exerciseList, false);
-        ImageButton exerciseDelete = (ImageButton) exerciseBox.findViewById(R.id.exerciseBoxDelete);
-        EditText exerciseName = (EditText) exerciseBox.findViewById(R.id.exerciseName);
-        EditText exerciseWeight = (EditText) exerciseBox.findViewById(R.id.exerciseWeight);
+        ImageButton exerciseDelete = exerciseBox.findViewById(R.id.exerciseBoxDelete);
+        EditText exerciseName = exerciseBox.findViewById(R.id.exerciseName);
+        EditText exerciseWeight = exerciseBox.findViewById(R.id.exerciseWeight);
         exerciseName.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int key, KeyEvent keyEvent) {
-                return onKeyHelper(view, key, keyEvent, exerciseName);
+                return onKeyHelper(key, exerciseName);
             }
         });
         exerciseWeight.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int key, KeyEvent keyEvent) {
-                return onKeyHelper(view, key, keyEvent, exerciseWeight);
+                return onKeyHelper(key, exerciseWeight);
             }
         });
         exerciseDelete.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +153,7 @@ public class WorkoutActivity extends AppCompatActivity {
         });
         exerciseList.addView(exerciseBox);
     }
-    public boolean onKeyHelper(View view, int key, KeyEvent keyEvent, View exerciseElement){
+    public boolean onKeyHelper(int key, View exerciseElement){
         if (key == KeyEvent.KEYCODE_ENTER){
             InputMethodManager keyboard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             keyboard.hideSoftInputFromWindow(WorkoutActivity.this.getCurrentFocus().getWindowToken(), 0);
