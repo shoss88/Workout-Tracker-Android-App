@@ -1,5 +1,6 @@
 package com.example.workouttracker;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -37,48 +38,73 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                List<Routine> previousRoutines =
-                        RoutineRoomDatabase.getInstance(MainActivity.this).routineDao().getRoutines();
-                
+                RoutineRoomDatabase routineDB = RoutineRoomDatabase.getInstance(MainActivity.this);
+                RoutineDao routineDao = routineDB.routineDao();
+                List<Routine> previousRoutines = routineDao.getRoutines();
+                for (int i = 0; i < previousRoutines.size(); i++){
+                    routineDao.deleteRoutine(previousRoutines.get(i));
+                }
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        for (int i = 0; i < previousRoutines.size(); i++){
+//                            Routine routine = previousRoutines.get(i);
+//                            addRoutine(routine.getId(), routine.getName(), false);
+//                        }
+//                    }
+//                });
             }
         });
+        thread.start();
     }
 
     public void addRoutine(View v){
+        addRoutine(null, "Routine", true);
+    }
+    public void addRoutine(Integer id, String name, boolean addToDatabase){
         LayoutInflater li = getLayoutInflater();
         View routineBox = li.inflate(R.layout.general_box, routineList, false);
         TextView routineName = routineBox.findViewById(R.id.boxName);
         ImageButton routineEdit = routineBox.findViewById(R.id.boxEdit);
         ImageButton routineDelete = routineBox.findViewById(R.id.boxDelete);
 
-        routineName.setText((CharSequence) ("Routine"));
+        routineName.setText((CharSequence) name);
         routineName.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                launchWorkoutActivity(v);
+            public void onClick(View clicked) {
+                launchWorkoutActivity(clicked);
             }
         });
         routineEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                editRoutineNameDialog(v);
+            public void onClick(View clicked) {
+                editRoutineNameDialog(clicked);
             }
         });
         routineDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                areYouSureDialog(v);
+            public void onClick(View clicked) {
+                areYouSureDialog(clicked);
             }
         });
-        routineBox.setId(View.generateViewId());
+
+        if (id == null){
+            routineBox.setId(View.generateViewId());
+        }
+        else{
+            routineBox.setId(id);
+        }
+        Log.i("name", routineBox.getId() + "");
         routineList.addView(routineBox);
-        ExecutorService service = Executors.newSingleThreadExecutor();
-        service.execute(new Runnable() {
-            @Override
-            public void run() {
-                RoutineRoomDatabase.getInstance(MainActivity.this).routineDao().insertRoutine(new Routine(routineBox.getId(), routineName.getText().toString()));
-            }
-        });
+        if (addToDatabase){
+            ExecutorService service = Executors.newSingleThreadExecutor();
+            service.execute(new Runnable() {
+                @Override
+                public void run() {
+                    RoutineRoomDatabase.getInstance(MainActivity.this).routineDao().insertRoutine(new Routine(routineBox.getId(), routineName.getText().toString()));
+                }
+            });
+        }
     }
     public void editRoutineNameDialog(View v){
         TextView routineName = ((RelativeLayout)v.getParent()).findViewById(R.id.boxName);
@@ -90,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         textBox.setText(routineName.getText());
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View clicked) {
                 String givenName = textBox.getText().toString();
                 if (givenName.length() > 19){
                     TextView submitInfo = dialog.findViewById(R.id.submitInfo);
@@ -105,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         });
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View clicked) {
                 dialog.dismiss();
             }
         });
@@ -118,9 +144,8 @@ public class MainActivity extends AppCompatActivity {
         Button no = dialog.findViewById(R.id.noButton);
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View clicked) {
                 RelativeLayout parent = (RelativeLayout)v.getParent();
-                View clickedButton = parent.findViewById(v.getId());
                 if (parent.getId() == R.id.buttonArea){
                     routineList.removeAllViews();
                 }
@@ -132,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         });
         no.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View clicked) {
                 dialog.dismiss();
             }
         });

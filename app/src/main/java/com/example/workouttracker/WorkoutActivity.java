@@ -48,20 +48,20 @@ public class WorkoutActivity extends AppCompatActivity {
 
         workoutEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                editWorkoutNameDialog(v);
+            public void onClick(View clicked) {
+                editWorkoutNameDialog(clicked);
             }
         });
         workoutDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                areYouSureDialog(v);
+            public void onClick(View clicked) {
+                areYouSureDialog(clicked);
             }
         });
         workoutAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                addExercise(v, exerciseList);
+            public void onClick(View clicked) {
+                addExercise(clicked, exerciseList);
             }
         });
         workoutBox.setId(View.generateViewId());
@@ -77,7 +77,7 @@ public class WorkoutActivity extends AppCompatActivity {
         textBox.setText(workoutName.getText());
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View clicked) {
                 String givenName = textBox.getText().toString();
                 if (givenName.length() > 19){
                     TextView submitInfo = dialog.findViewById(R.id.submitInfo);
@@ -92,7 +92,7 @@ public class WorkoutActivity extends AppCompatActivity {
         });
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View clicked) {
                 dialog.dismiss();
             }
         });
@@ -105,7 +105,7 @@ public class WorkoutActivity extends AppCompatActivity {
         Button no = dialog.findViewById(R.id.noButton);
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View clicked) {
                 RelativeLayout parent = (RelativeLayout)v.getParent();
                 if (parent.getId() == R.id.buttonArea){
                     workoutList.removeAllViews();
@@ -121,7 +121,7 @@ public class WorkoutActivity extends AppCompatActivity {
         });
         no.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View clicked) {
                 dialog.dismiss();
             }
         });
@@ -147,8 +147,8 @@ public class WorkoutActivity extends AppCompatActivity {
         });
         exerciseDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                areYouSureDialog(v);
+            public void onClick(View clicked) {
+                areYouSureDialog(clicked);
             }
         });
         exerciseList.addView(exerciseBox);
