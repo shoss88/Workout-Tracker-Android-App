@@ -11,14 +11,14 @@ import java.util.List;
 
 @Dao
 public interface RoutineDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertRoutines(Routine routines);
+    @Insert
+    void insertRoutine(Routine routine);
 
     @Update
-    void updateUsers(Routine routines);
+    void updateRoutine(Routine routine);
 
     @Delete
-    void delete(Routine routine);
+    void deleteRoutine(Routine routine);
 
     @Query("SELECT * FROM routine")
     List<Routine> getRoutines();

@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -22,6 +23,9 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     LinearLayout routineList;
@@ -29,15 +33,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        routineList = (LinearLayout)findViewById(R.id.routineList);
+        routineList = findViewById(R.id.routineList);
     }
 
     public void addRoutine(View v){
         LayoutInflater li = getLayoutInflater();
         View routineBox = li.inflate(R.layout.general_box, routineList, false);
-        TextView routineName = (TextView) routineBox.findViewById(R.id.boxName);
-        ImageButton routineEdit = (ImageButton) routineBox.findViewById(R.id.boxEdit);
-        ImageButton routineDelete = (ImageButton) routineBox.findViewById(R.id.boxDelete);
+        TextView routineName = routineBox.findViewById(R.id.boxName);
+        ImageButton routineEdit = routineBox.findViewById(R.id.boxEdit);
+        ImageButton routineDelete = routineBox.findViewById(R.id.boxDelete);
 
         routineName.setText((CharSequence) ("Routine"));
         routineName.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
         });
         routineBox.setId(View.generateViewId());
         routineList.addView(routineBox);
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        service.execute(new Runnable() {
+            @Override
+            public void run() {
+                RoutineRoomDatabase.getInstance(MainActivity.this).routineDao().insertRoutine(new Routine(routineBox.getId(), routineName.getText().toString()));
+            }
+        });
     }
     public void editRoutineNameDialog(View v){
         TextView routineName = ((RelativeLayout)v.getParent()).findViewById(R.id.boxName);
@@ -67,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.edit_name_dialog);
         Button submit = dialog.findViewById(R.id.ESubmitButton);
         Button cancel = dialog.findViewById(R.id.ECancelButton);
-        TextView textBox = ((TextView)dialog.findViewById(R.id.editTextBox));
+        TextView textBox = dialog.findViewById(R.id.editTextBox);
         textBox.setText(routineName.getText());
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

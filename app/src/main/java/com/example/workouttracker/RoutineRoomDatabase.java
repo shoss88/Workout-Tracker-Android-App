@@ -11,7 +11,7 @@ public abstract class RoutineRoomDatabase extends RoomDatabase {
     public abstract RoutineDao routineDao();
     private static volatile RoutineRoomDatabase INSTANCE;
 
-    static RoutineRoomDatabase getInstance(Context context){
+    public static RoutineRoomDatabase getInstance(Context context){
         if (INSTANCE == null){
             synchronized (RoutineRoomDatabase.class){
                 if (INSTANCE == null){
