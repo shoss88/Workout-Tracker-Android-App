@@ -20,6 +20,12 @@ public interface RoutineDao {
     @Delete
     void deleteRoutine(Routine routine);
 
-    @Query("SELECT * FROM routine")
+    @Query("SELECT * FROM routine_table")
     List<Routine> getRoutines();
+
+    @Query("SELECT * FROM routine_table WHERE id LIKE :id ")
+    Routine getRoutineById(int id);
+
+    @Query("DELETE FROM routine_table")
+    void deleteAllRoutines();
 }

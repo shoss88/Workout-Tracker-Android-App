@@ -41,18 +41,15 @@ public class MainActivity extends AppCompatActivity {
                 RoutineRoomDatabase routineDB = RoutineRoomDatabase.getInstance(MainActivity.this);
                 RoutineDao routineDao = routineDB.routineDao();
                 List<Routine> previousRoutines = routineDao.getRoutines();
-                for (int i = 0; i < previousRoutines.size(); i++){
-                    routineDao.deleteRoutine(previousRoutines.get(i));
-                }
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        for (int i = 0; i < previousRoutines.size(); i++){
-//                            Routine routine = previousRoutines.get(i);
-//                            addRoutine(routine.getId(), routine.getName(), false);
-//                        }
-//                    }
-//                });
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < previousRoutines.size(); i++){
+                            Routine routine = previousRoutines.get(i);
+                            addRoutine(routine.getId(), routine.getName(), false);
+                        }
+                    }
+                });
             }
         });
         thread.start();
@@ -64,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public void addRoutine(Integer id, String name, boolean addToDatabase){
         LayoutInflater li = getLayoutInflater();
         View routineBox = li.inflate(R.layout.general_box, routineList, false);
+        RelativeLayout routineLayout = routineBox.findViewById(R.id.box);
         TextView routineName = routineBox.findViewById(R.id.boxName);
         ImageButton routineEdit = routineBox.findViewById(R.id.boxEdit);
         ImageButton routineDelete = routineBox.findViewById(R.id.boxDelete);
@@ -88,23 +86,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (id == null){
-            routineBox.setId(View.generateViewId());
-        }
-        else{
-            routineBox.setId(id);
-        }
-        Log.i("name", routineBox.getId() + "");
-        routineList.addView(routineBox);
         if (addToDatabase){
             ExecutorService service = Executors.newSingleThreadExecutor();
             service.execute(new Runnable() {
                 @Override
                 public void run() {
-                    RoutineRoomDatabase.getInstance(MainActivity.this).routineDao().insertRoutine(new Routine(routineBox.getId(), routineName.getText().toString()));
+                    RoutineRoomDatabase routineDB = RoutineRoomDatabase.getInstance(MainActivity.this);
+                    RoutineDao routineDao = routineDB.routineDao();
+                    Routine newRoutine = new Routine(routineName.getText().toString());
+                    routineDao.insertRoutine(newRoutine);
                 }
             });
         }
+        routineList.addView(routineBox);
     }
     public void editRoutineNameDialog(View v){
         TextView routineName = ((RelativeLayout)v.getParent()).findViewById(R.id.boxName);
@@ -148,6 +142,16 @@ public class MainActivity extends AppCompatActivity {
                 RelativeLayout parent = (RelativeLayout)v.getParent();
                 if (parent.getId() == R.id.buttonArea){
                     routineList.removeAllViews();
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.i("size", "RoutineList: " + routineList.getChildCount());
+                            RoutineRoomDatabase routineDB = RoutineRoomDatabase.getInstance(MainActivity.this);
+                            RoutineDao routineDao = routineDB.routineDao();
+                            routineDao.deleteAllRoutines();
+                        }
+                    });
+                    thread.start();
                 }
                 else {
                     ((ConstraintLayout)parent.getParent()).removeView(parent);
