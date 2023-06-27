@@ -34,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         routineList = findViewById(R.id.routineList);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<Routine> previousRoutines =
+                        RoutineRoomDatabase.getInstance(MainActivity.this).routineDao().getRoutines();
+                
+            }
+        });
     }
 
     public void addRoutine(View v){

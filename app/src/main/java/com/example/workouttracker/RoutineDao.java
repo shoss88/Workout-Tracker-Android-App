@@ -11,7 +11,7 @@ import java.util.List;
 
 @Dao
 public interface RoutineDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertRoutine(Routine routine);
 
     @Update
