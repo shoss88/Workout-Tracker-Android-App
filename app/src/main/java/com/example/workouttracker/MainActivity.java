@@ -20,13 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 
 public class MainActivity extends AppCompatActivity {
     LinearLayout routineList;
@@ -46,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         for (int i = 0; i < previousRoutines.size(); i++){
                             Routine routine = previousRoutines.get(i);
-                            addRoutine(routine.getId(), routine.getName(), false);
+                            addRoutine(routine.getName());
                         }
                     }
                 });
@@ -56,12 +51,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addRoutine(View v){
-        addRoutine(null, "Routine", true);
+        addRoutine("Routine");
     }
-    public void addRoutine(Integer id, String name, boolean addToDatabase){
+    public void addRoutine(String name){
         LayoutInflater li = getLayoutInflater();
         View routineBox = li.inflate(R.layout.general_box, routineList, false);
-        RelativeLayout routineLayout = routineBox.findViewById(R.id.box);
         TextView routineName = routineBox.findViewById(R.id.boxName);
         ImageButton routineEdit = routineBox.findViewById(R.id.boxEdit);
         ImageButton routineDelete = routineBox.findViewById(R.id.boxDelete);
@@ -86,18 +80,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (addToDatabase){
-            ExecutorService service = Executors.newSingleThreadExecutor();
-            service.execute(new Runnable() {
-                @Override
-                public void run() {
-                    RoutineRoomDatabase routineDB = RoutineRoomDatabase.getInstance(MainActivity.this);
-                    RoutineDao routineDao = routineDB.routineDao();
-                    Routine newRoutine = new Routine(routineName.getText().toString());
-                    routineDao.insertRoutine(newRoutine);
-                }
-            });
-        }
         routineList.addView(routineBox);
     }
     public void editRoutineNameDialog(View v){
@@ -142,19 +124,9 @@ public class MainActivity extends AppCompatActivity {
                 RelativeLayout parent = (RelativeLayout)v.getParent();
                 if (parent.getId() == R.id.buttonArea){
                     routineList.removeAllViews();
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.i("size", "RoutineList: " + routineList.getChildCount());
-                            RoutineRoomDatabase routineDB = RoutineRoomDatabase.getInstance(MainActivity.this);
-                            RoutineDao routineDao = routineDB.routineDao();
-                            routineDao.deleteAllRoutines();
-                        }
-                    });
-                    thread.start();
                 }
                 else {
-                    ((ConstraintLayout)parent.getParent()).removeView(parent);
+                    routineList.removeView((View)parent.getParent());
                 }
                 dialog.dismiss();
             }
@@ -172,5 +144,27 @@ public class MainActivity extends AppCompatActivity {
         TextView routineName = (TextView)v;
         workoutIntent.putExtra("RoutineName", routineName.getText());
         startActivity(workoutIntent);
+    }
+
+    @Override
+    protected void onStop() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RoutineRoomDatabase routineDB = RoutineRoomDatabase.getInstance(MainActivity.this);
+                RoutineDao routineDao = routineDB.routineDao();
+                routineDao.deleteAllRoutines();
+                routineDao.clearPrimaryKey();
+                Log.i("size", "Routinelist size: " + routineList.getChildCount());
+                for (int i = 0; i < routineList.getChildCount(); i++) {
+                    View routineBox = routineList.getChildAt(i);
+                    String name = ((TextView) routineBox.findViewById(R.id.boxName)).getText().toString();
+                    Routine newRoutine = new Routine(name);
+                    routineDao.insertRoutine(newRoutine);
+                }
+            }
+        });
+        thread.start();
+        super.onStop();
     }
 }

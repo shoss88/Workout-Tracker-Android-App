@@ -28,4 +28,8 @@ public interface RoutineDao {
 
     @Query("DELETE FROM routine_table")
     void deleteAllRoutines();
+
+    @Query("DELETE FROM sqlite_sequence WHERE name='routine_table'")
+    void clearPrimaryKey();
+
 }
