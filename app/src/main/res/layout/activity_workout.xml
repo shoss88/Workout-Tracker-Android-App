@@ -64,7 +64,6 @@
             android:layout_marginTop="13dp"
             android:backgroundTint="#E36464"
             android:gravity="center|end"
-            android:onClick="areYouSureDialog"
             android:paddingStart="0dp"
             android:paddingEnd="15dp"
             android:text="@string/clear_workouts"

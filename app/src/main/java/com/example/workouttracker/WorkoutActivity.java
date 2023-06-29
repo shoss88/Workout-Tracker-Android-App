@@ -34,6 +34,13 @@ public class WorkoutActivity extends AppCompatActivity {
         Intent workoutIntent = getIntent();
         String routineName = workoutIntent.getStringExtra("RoutineName") + ": Workouts";
         ((TextView)findViewById(R.id.mainHeader)).setText(routineName);
+        Button clearWorkouts = findViewById(R.id.clearWorkoutsButton);
+        clearWorkouts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View clicked) {
+                areYouSureDialog(clicked, null);
+            }
+        });
     }
     public void addWorkout(View v){
         LayoutInflater li = getLayoutInflater();
@@ -55,16 +62,15 @@ public class WorkoutActivity extends AppCompatActivity {
         workoutDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View clicked) {
-                areYouSureDialog(clicked);
+                areYouSureDialog(clicked, exerciseList);
             }
         });
         workoutAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View clicked) {
-                addExercise(clicked, exerciseList);
+                addExercise(exerciseList);
             }
         });
-        workoutBox.setId(View.generateViewId());
         workoutList.addView(workoutBox);
     }
     public void editWorkoutNameDialog(View v){
@@ -98,7 +104,7 @@ public class WorkoutActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-    public void areYouSureDialog(View v){
+    public void areYouSureDialog(View v, LinearLayout exerciseList){
         Dialog dialog = new Dialog(WorkoutActivity.this);
         dialog.setContentView(R.layout.sure_dialog);
         Button yes = dialog.findViewById(R.id.yesButton);
@@ -111,10 +117,12 @@ public class WorkoutActivity extends AppCompatActivity {
                     workoutList.removeAllViews();
                 }
                 else if (parent.getId() == R.id.workoutBoxMain){
-                    ((ConstraintLayout)parent.getParent().getParent()).removeView((RelativeLayout)parent.getParent());
+//                    ((ConstraintLayout)parent.getParent().getParent()).removeView((RelativeLayout)parent.getParent());
+                    workoutList.removeView((View)parent.getParent().getParent());
                 }
                 else {
-                    ((ConstraintLayout)parent.getParent()).removeView(parent);
+//                    ((ConstraintLayout)parent.getParent()).removeView(parent);
+                    exerciseList.removeView((View)parent.getParent());
                 }
                 dialog.dismiss();
             }
@@ -127,7 +135,7 @@ public class WorkoutActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-    public void addExercise(View v, LinearLayout exerciseList){
+    public void addExercise(LinearLayout exerciseList){
         LayoutInflater li = getLayoutInflater();
         View exerciseBox = li.inflate(R.layout.exercise_box, exerciseList, false);
         ImageButton exerciseDelete = exerciseBox.findViewById(R.id.exerciseBoxDelete);
@@ -148,7 +156,7 @@ public class WorkoutActivity extends AppCompatActivity {
         exerciseDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View clicked) {
-                areYouSureDialog(clicked);
+                areYouSureDialog(clicked, exerciseList);
             }
         });
         exerciseList.addView(exerciseBox);
