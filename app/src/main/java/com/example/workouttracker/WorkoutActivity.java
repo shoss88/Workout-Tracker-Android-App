@@ -117,11 +117,9 @@ public class WorkoutActivity extends AppCompatActivity {
                     workoutList.removeAllViews();
                 }
                 else if (parent.getId() == R.id.workoutBoxMain){
-//                    ((ConstraintLayout)parent.getParent().getParent()).removeView((RelativeLayout)parent.getParent());
                     workoutList.removeView((View)parent.getParent().getParent());
                 }
                 else {
-//                    ((ConstraintLayout)parent.getParent()).removeView(parent);
                     exerciseList.removeView((View)parent.getParent());
                 }
                 dialog.dismiss();
