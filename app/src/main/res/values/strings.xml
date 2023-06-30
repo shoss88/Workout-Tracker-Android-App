@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Workout Tracker</string>
-    <string name="clear_routines">Clear Routines</string>
-    <string name="add_routine">Add Routine</string>
-    <string name="routine_header">Routines</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
@@ -11,7 +8,7 @@
     <string name="clear_workouts">Clear Workouts</string>
     <string name="add_workout">Add Workout</string>
     <string name="sure_question">Are you sure?</string>
-    <string name="default_workouts_header">Routine: All Workouts</string>
+    <string name="default_workouts_header">Workouts</string>
     <string name="weight_label">Weight:</string>
     <string name="exercise_label">Exercise:</string>
 </resources>

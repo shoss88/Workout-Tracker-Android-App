@@ -2,14 +2,14 @@ package com.example.workouttracker;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "routine_table")
-public class Routine {
+@Entity(tableName = "workout_table")
+public class Workout {
     @PrimaryKey(autoGenerate = true)
     private int id = 0;
 
     private String name;
 
-    public Routine(String name){
+    public Workout(String name){
         this.name = name;
     }
 
