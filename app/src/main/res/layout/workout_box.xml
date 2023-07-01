@@ -58,7 +58,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/ripple"
-                android:backgroundTint="#FFADAD"
+                android:backgroundTint="#B31616"
+                android:contentDescription="@string/workout_delete_desc"
                 app:srcCompat="@android:drawable/ic_menu_delete" />
 
             <ImageButton
@@ -70,7 +71,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/ripple"
-                android:backgroundTint="#ECE293"
+                android:backgroundTint="#F1A627"
+                android:contentDescription="@string/workout_edit_desc"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
 
             <ImageButton
@@ -82,7 +84,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="100dp"
                 android:background="@drawable/ripple"
-                android:backgroundTint="#77A8F3"
+                android:backgroundTint="#3A8EF4"
+                android:contentDescription="@string/workout_add_exercise_desc"
                 app:srcCompat="@android:drawable/ic_menu_add" />
         </RelativeLayout>
 
@@ -96,7 +99,8 @@
             android:layout_marginTop="60dp"
             android:background="@drawable/border"
             android:backgroundTint="#CCF4C5"
-            android:backgroundTintMode="multiply">
+            android:backgroundTintMode="multiply"
+            android:contentDescription="@string/workout_scroll_desc">
 
             <LinearLayout
                 android:id="@+id/exerciseList"

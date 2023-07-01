@@ -11,4 +11,11 @@
     <string name="default_workouts_header">Workouts</string>
     <string name="weight_label">Weight:</string>
     <string name="exercise_label">Exercise:</string>
+    <string name="main_activity_scroll_desc">Contains workouts</string>
+    <string name="edit_dialog_desc">Enter name</string>
+    <string name="workout_delete_desc">Deletes the workout</string>
+    <string name="workout_edit_desc">Edits the workout name</string>
+    <string name="workout_add_exercise_desc">Adds an exercise to workout</string>
+    <string name="workout_scroll_desc">Contains exercises</string>
+    <string name="exercise_delete_desc">Deletes the exercise</string>
 </resources>

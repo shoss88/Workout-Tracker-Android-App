@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/exerciseBox"
         android:layout_width="0dp"
-        android:layout_height="66dp"
+        android:layout_height="96dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -24,7 +24,7 @@
         <EditText
             android:id="@+id/exerciseName"
             android:layout_width="0dp"
-            android:layout_height="33dp"
+            android:layout_height="48dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -33,6 +33,7 @@
             android:backgroundTint="#FFFFFF"
             android:backgroundTintMode="multiply"
             android:gravity="center|start"
+            android:importantForAutofill="no"
             android:hint="@string/exercise_label"
             android:inputType="text"
             android:paddingStart="5dp"
@@ -44,18 +45,18 @@
         <EditText
             android:id="@+id/exerciseWeight"
             android:layout_width="0dp"
-            android:layout_height="33dp"
+            android:layout_height="48dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-
             android:layout_marginEnd="50dp"
             android:background="@drawable/border"
             android:backgroundTint="#FFFFFF"
             android:backgroundTintMode="multiply"
             android:gravity="center|start"
+            android:importantForAutofill="no"
             android:hint="@string/weight_label"
-            android:inputType="text"
+            android:inputType="numberSigned"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:textColor="#000000"
@@ -74,7 +75,8 @@
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="1dp"
             android:background="@drawable/ripple"
-            android:backgroundTint="#DD5E5E"
+            android:backgroundTint="#B11212"
+            android:contentDescription="@string/exercise_delete_desc"
             app:srcCompat="@android:drawable/ic_menu_delete" />
 
     </RelativeLayout>

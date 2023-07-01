@@ -9,7 +9,9 @@
         android:id="@+id/editNameDialog"
         android:layout_width="350dp"
         android:layout_height="200dp"
-        android:background="#EFEBEB"
+        android:background="@drawable/border"
+        android:backgroundTint="#EFEBEB"
+        android:backgroundTintMode="multiply"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
@@ -28,8 +30,12 @@
             android:layout_marginEnd="23dp"
             android:background="@android:drawable/editbox_background_normal"
             android:ems="10"
+            android:hint="@string/edit_dialog_desc"
+            android:importantForAutofill="no"
             android:inputType="text"
+            android:minHeight="48dp"
             android:textColor="#000000"
+            android:textColorHint="#514F4F"
             android:textSize="20sp" />
 
         <Button
@@ -42,7 +48,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="215dp"
             android:layout_marginBottom="19dp"
-            android:backgroundTint="#54B658"
+            android:backgroundTint="#008a02"
             android:gravity="center"
             android:paddingLeft="0dp"
             android:paddingTop="0dp"

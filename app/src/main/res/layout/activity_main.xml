@@ -30,6 +30,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="135dp"
         android:background="#444544"
+        android:contentDescription="@string/main_activity_scroll_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,8 +40,7 @@
             android:id="@+id/workoutList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-        />
+            android:orientation="vertical" />
     </ScrollView>
 
 
@@ -63,7 +63,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="15dp"
             android:layout_marginTop="13dp"
-            android:backgroundTint="#E36464"
+            android:backgroundTint="#d24141"
             android:gravity="center|end"
             android:paddingStart="0dp"
             android:paddingEnd="15dp"
@@ -86,7 +86,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="13dp"
             android:layout_marginEnd="15dp"
-            android:backgroundTint="#6492ED"
+            android:backgroundTint="#3a71df"
             android:gravity="center|end"
             android:onClick="addWorkout"
             android:paddingStart="10dp"
