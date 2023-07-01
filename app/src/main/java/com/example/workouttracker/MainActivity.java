@@ -47,7 +47,16 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         for (int i = 0; i < previousWorkouts.size(); i++){
                             Workout workout = previousWorkouts.get(i);
-                            addWorkout(workout.getName());
+                            View workoutBox = addWorkout(workout.getName());
+                            String[] exerciseList = workout.getExercises().split("\n");
+                            if (!exerciseList[0].equals("")){
+                                for (String exerciseString : exerciseList) {
+                                    int colonIndex = exerciseString.indexOf(":");
+                                    String exerciseName = exerciseString.substring(0, colonIndex);
+                                    String exerciseWeight = exerciseString.substring(colonIndex + 1);
+                                    addExercise(workoutBox, exerciseName, exerciseWeight);
+                                }
+                            }
                         }
                     }
                 });
@@ -55,11 +64,12 @@ public class MainActivity extends AppCompatActivity {
         });
         thread.start();
     }
+    // "name:weight name:weight name:weight"
 
     public void addWorkout(View v){
         addWorkout("Workout");
     }
-    public void addWorkout(String name){
+    public View addWorkout(String name){
         LayoutInflater li = getLayoutInflater();
         View workoutBox = li.inflate(R.layout.workout_box, workoutList, false);
         TextView workoutName = workoutBox.findViewById(R.id.workoutBoxName);
@@ -85,10 +95,11 @@ public class MainActivity extends AppCompatActivity {
         workoutAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View clicked) {
-                addExercise(exerciseList);
+                addExercise(workoutBox, null, null);
             }
         });
         workoutList.addView(workoutBox);
+        return workoutBox;
     }
     public void editWorkoutNameDialog(View v){
         TextView workoutName = ((RelativeLayout)v.getParent()).findViewById(R.id.workoutBoxName);
@@ -150,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-    public void addExercise(LinearLayout exerciseList){
+    public void addExercise(View workoutBox, String name, String weight){
+        LinearLayout exerciseList = workoutBox.findViewById(R.id.exerciseList);
         LayoutInflater li = getLayoutInflater();
         View exerciseBox = li.inflate(R.layout.exercise_box, exerciseList, false);
         ImageButton exerciseDelete = exerciseBox.findViewById(R.id.exerciseBoxDelete);
@@ -174,6 +186,11 @@ public class MainActivity extends AppCompatActivity {
                 areYouSureDialog(clicked, exerciseList);
             }
         });
+
+        if (name != null && weight != null){
+            exerciseName.setText((CharSequence) name);
+            exerciseWeight.setText((CharSequence) weight);
+        }
         exerciseList.addView(exerciseBox);
     }
     public boolean onKeyHelper(int key, View exerciseElement){
@@ -201,7 +218,20 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < workoutList.getChildCount(); i++) {
                     View workoutBox = workoutList.getChildAt(i);
                     String name = ((TextView) workoutBox.findViewById(R.id.workoutBoxName)).getText().toString();
-                    Workout newWorkout = new Workout(name);
+                    LinearLayout exerciseList = workoutBox.findViewById(R.id.exerciseList);
+                    StringBuilder exerciseListString = new StringBuilder();
+                    int exerciseListSize = exerciseList.getChildCount();
+                    for (int j = 0; j < exerciseListSize; j++){
+                        View exerciseBox = exerciseList.getChildAt(j);
+                        EditText exerciseName = exerciseBox.findViewById(R.id.exerciseName);
+                        EditText exerciseWeight = exerciseBox.findViewById(R.id.exerciseWeight);
+                        String exerciseString = exerciseName.getText() + ":" + exerciseWeight.getText();
+                        if (j < exerciseListSize - 1){
+                            exerciseString += "\n";
+                        }
+                        exerciseListString.append(exerciseString);
+                    }
+                    Workout newWorkout = new Workout(name, exerciseListString.toString());
                     workoutDao.insertWorkout(newWorkout);
                 }
             }

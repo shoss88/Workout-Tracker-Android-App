@@ -9,8 +9,11 @@ public class Workout {
 
     private String name;
 
-    public Workout(String name){
+    private String exercises;
+
+    public Workout(String name, String exercises){
         this.name = name;
+        this.exercises = exercises;
     }
 
     public int getId(){
@@ -21,11 +24,19 @@ public class Workout {
         return this.name;
     }
 
+    public String getExercises() {
+        return this.exercises;
+    }
+
     public void setId(int id){
         this.id = id;
     }
 
     public void setName(String name){
         this.name = name;
+    }
+
+    public void setExercises(String exercises) {
+        this.exercises = exercises;
     }
 }
