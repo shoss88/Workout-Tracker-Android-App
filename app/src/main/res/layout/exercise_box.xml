@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/exerciseBox"
         android:layout_width="0dp"
-        android:layout_height="96dp"
+        android:layout_height="80dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -24,7 +24,7 @@
         <EditText
             android:id="@+id/exerciseName"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="40dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -45,7 +45,7 @@
         <EditText
             android:id="@+id/exerciseWeight"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="40dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
