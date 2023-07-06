@@ -24,6 +24,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     LinearLayout workoutList;
+
+    /**
+     * Called when the activity is created.
+     * @param savedInstanceState
+     *     The previous state that was saved.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 areYouSureDialog(clicked, null);
             }
         });
+        // Separate thread to retrieve data from the database and add dynamically added views back to the main UI thread.
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -64,11 +71,23 @@ public class MainActivity extends AppCompatActivity {
         });
         thread.start();
     }
-    // "name:weight name:weight name:weight"
 
+    /**
+     * Adds a workout to the workout list.
+     * @param v
+     *     The view that was clicked
+     */
     public void addWorkout(View v){
         addWorkout("Workout");
     }
+
+    /**
+     * Adds a workout with a specific name to the workout list and returns this workout.
+     * @param name
+     *     A given name for the workout
+     * @return
+     *     Returns the created workout.
+     */
     public View addWorkout(String name){
         LayoutInflater li = getLayoutInflater();
         View workoutBox = li.inflate(R.layout.workout_box, workoutList, false);
@@ -101,6 +120,12 @@ public class MainActivity extends AppCompatActivity {
         workoutList.addView(workoutBox);
         return workoutBox;
     }
+
+    /**
+     * Displays the dialog for editing workout names.
+     * @param v
+     *     The view that was clicked.
+     */
     public void editWorkoutNameDialog(View v){
         TextView workoutName = ((RelativeLayout)v.getParent()).findViewById(R.id.workoutBoxName);
         Dialog dialog = new Dialog(MainActivity.this);
@@ -132,6 +157,14 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.show();
     }
+
+    /**
+     * Displays the dialog for confirming an action.
+     * @param v
+     *     The view that was clicked.
+     * @param exerciseList
+     *     The exercise list of a specific workout.
+     */
     public void areYouSureDialog(View v, LinearLayout exerciseList){
         Dialog dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.sure_dialog);
@@ -161,6 +194,16 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.show();
     }
+
+    /**
+     * Adds an exercise to the given workout.
+     * @param workoutBox
+     *     The view that represents the workout for the exercise to be added to.
+     * @param name
+     *     A given name for the exercise.
+     * @param weight
+     *     A given weight for the exercise.
+     */
     public void addExercise(View workoutBox, String name, String weight){
         LinearLayout exerciseList = workoutBox.findViewById(R.id.exerciseList);
         LayoutInflater li = getLayoutInflater();
@@ -193,6 +236,16 @@ public class MainActivity extends AppCompatActivity {
         }
         exerciseList.addView(exerciseBox);
     }
+
+    /**
+     * A helper for the onKey function. It forcefully hides the keyboard after the user presses the "DONE" key.
+     * @param key
+     *     The key pressed by the user.
+     * @param exerciseElement
+     *     The view that represents an element of the exercise.
+     * @return
+     *     Returns true if the key pressed was "DONE".
+     */
     public boolean onKeyHelper(int key, View exerciseElement){
         if (key == KeyEvent.KEYCODE_ENTER){
             InputMethodManager keyboard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -206,6 +259,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * When the activity is stopped, this method will also create a new thread to save the current workout and exercise data.
+     */
     @Override
     protected void onStop() {
         Thread thread = new Thread(new Runnable() {

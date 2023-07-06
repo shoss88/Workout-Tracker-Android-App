@@ -11,24 +11,32 @@ import java.util.List;
 
 @Dao
 public interface WorkoutDao {
+
+    /**
+     * Inserts a workout into the database.
+     * @param workout
+     *     The workout to be inserted.
+     */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertWorkout(Workout workout);
 
-    @Update
-    void updateWorkout(Workout workout);
-
-    @Delete
-    void deleteWorkout(Workout workout);
-
+    /**
+     * Returns a list of Workout objects that were stored in the database.
+     * @return
+     *     A list of Workout objects that were stored in the database.
+     */
     @Query("SELECT * FROM 'workout_table'")
     List<Workout> getWorkouts();
 
-    @Query("SELECT * FROM 'workout_table' WHERE id LIKE :id ")
-    Workout getWorkoutById(int id);
-
+    /**
+     * Deletes all workouts stored within the database.
+     */
     @Query("DELETE FROM 'workout_table'")
     void deleteAllWorkouts();
 
+    /**
+     * Resets the primary key generator back to 1.
+     */
     @Query("DELETE FROM sqlite_sequence WHERE name='workout_table'")
     void clearPrimaryKey();
 
